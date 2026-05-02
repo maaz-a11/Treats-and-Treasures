@@ -113,6 +113,7 @@ export default function Builder() {
     onUpdateColor: updateLayerColor,
     activeTab: shelfTab,
     onTabChange: setShelfTab,
+    onTapAdd: addLayer,
   }
 
   const sharedLayerProps = {

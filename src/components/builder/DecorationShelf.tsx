@@ -6,7 +6,7 @@ import { DECORATION_ITEMS, PRESET_COLORS, TABS, type DecorationItem } from './de
 import type { CakeLayer } from '../../hooks/useCakeBuilder'
 
 // ---------------------------------------------------------------------------
-// Draggable item card
+// Draggable item card — desktop only
 // ---------------------------------------------------------------------------
 interface DraggableItemProps {
   item: DecorationItem
@@ -39,7 +39,49 @@ function DraggableItem({ item }: DraggableItemProps) {
 }
 
 // ---------------------------------------------------------------------------
-// Color picker tab — BUG 3 + BUG 6 fix: immediately updates, shows selected layer
+// Tappable item card — mobile only
+// ---------------------------------------------------------------------------
+interface TappableItemProps {
+  item: DecorationItem
+  onTap: (item: DecorationItem) => void
+}
+
+function TappableItem({ item, onTap }: TappableItemProps) {
+  const [tapped, setTapped] = useState(false)
+
+  function handleTap() {
+    onTap(item)
+    setTapped(true)
+    setTimeout(() => setTapped(false), 1500)
+  }
+
+  return (
+    <button
+      onClick={handleTap}
+      className="w-full flex items-center gap-3 bg-surface border border-primary-light/30 rounded-xl px-4 py-3
+                 min-h-[52px] active:scale-[0.98] transition-all duration-150
+                 hover:border-primary/50 hover:shadow-card text-left"
+    >
+      <span className="text-xl leading-none flex-shrink-0">{item.emoji}</span>
+      <span className="font-body text-sm font-medium text-espresso flex-1">{item.name}</span>
+      <AnimatePresence>
+        {tapped && (
+          <motion.span
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.8 }}
+            className="flex-shrink-0 bg-green-500 text-white text-[11px] font-bold px-2 py-0.5 rounded-full"
+          >
+            ✓ Added
+          </motion.span>
+        )}
+      </AnimatePresence>
+    </button>
+  )
+}
+
+// ---------------------------------------------------------------------------
+// Color picker tab
 // ---------------------------------------------------------------------------
 interface ColorPickerTabProps {
   selectedLayerId: string | null
@@ -51,7 +93,6 @@ function ColorPickerTab({ selectedLayerId, layers, onUpdateColor }: ColorPickerT
   const [customHex, setCustomHex] = useState('#F2A7BB')
   const selectedLayer = layers.find(l => l.id === selectedLayerId)
 
-  // Sync custom hex input when selected layer color changes externally
   useEffect(() => {
     if (selectedLayer?.color) setCustomHex(selectedLayer.color)
   }, [selectedLayer?.color])
@@ -63,7 +104,6 @@ function ColorPickerTab({ selectedLayerId, layers, onUpdateColor }: ColorPickerT
 
   return (
     <div className="flex flex-col gap-4">
-      {/* Selected layer indicator */}
       {selectedLayer ? (
         <div className="bg-blue-50 border border-blue-200 rounded-xl px-3 py-2 flex items-center gap-2">
           <div
@@ -78,25 +118,28 @@ function ColorPickerTab({ selectedLayerId, layers, onUpdateColor }: ColorPickerT
       ) : (
         <div className="bg-primary-light/10 border border-primary/15 rounded-xl px-3 py-2.5 text-center">
           <p className="font-body text-xs text-espresso-light/60">
-            Click a tier on the canvas to select it
+            Tap a tier on the canvas to select it
           </p>
         </div>
       )}
 
-      {/* Preset color grid */}
-      <div className="grid grid-cols-5 gap-1.5">
+      {/* Preset color grid — 5 columns */}
+      <div className="grid grid-cols-5 gap-2">
         {PRESET_COLORS.map((c) => (
           <button
             key={c.hex}
             onClick={() => applyColor(c.hex)}
             title={c.name}
             disabled={!selectedLayerId}
-            className={`w-full aspect-square rounded-lg border-2 transition-all duration-100
+            className={`w-full aspect-square rounded-lg border-2 transition-all duration-100 min-h-[44px] md:min-h-0
               ${selectedLayer?.color === c.hex
                 ? 'border-blue-400 scale-110 shadow-md'
                 : 'border-transparent hover:border-espresso/25 hover:scale-105'}
               ${!selectedLayerId ? 'opacity-40 cursor-not-allowed' : 'cursor-pointer'}`}
-            style={{ backgroundColor: c.hex, boxShadow: c.hex === '#FFFFFF' || c.hex === '#FFFFF0' ? 'inset 0 0 0 1px rgba(0,0,0,0.1)' : undefined }}
+            style={{
+              backgroundColor: c.hex,
+              boxShadow: c.hex === '#FFFFFF' || c.hex === '#FFFFF0' ? 'inset 0 0 0 1px rgba(0,0,0,0.1)' : undefined,
+            }}
           />
         ))}
       </div>
@@ -109,7 +152,7 @@ function ColorPickerTab({ selectedLayerId, layers, onUpdateColor }: ColorPickerT
             type="color"
             value={customHex}
             onChange={e => { setCustomHex(e.target.value); applyColor(e.target.value) }}
-            className="w-10 h-10 rounded-lg border border-primary/20 cursor-pointer bg-transparent flex-shrink-0"
+            className="w-12 h-12 rounded-lg border border-primary/20 cursor-pointer bg-transparent flex-shrink-0"
           />
           <input
             type="text"
@@ -118,7 +161,7 @@ function ColorPickerTab({ selectedLayerId, layers, onUpdateColor }: ColorPickerT
             onBlur={e => applyColor(e.target.value)}
             onKeyDown={e => e.key === 'Enter' && applyColor(customHex)}
             placeholder="#F2A7BB"
-            className="flex-1 font-body text-xs bg-surface border border-primary/20 rounded-xl px-3 py-2 text-espresso outline-none focus:border-primary transition-colors min-w-0"
+            className="flex-1 font-body text-base bg-surface border border-primary/20 rounded-xl px-3 py-2 text-espresso outline-none focus:border-primary transition-colors min-w-0"
           />
         </div>
       </div>
@@ -135,10 +178,11 @@ interface DecorationShelfProps {
   onUpdateColor: (id: string, color: string) => void
   activeTab: string
   onTabChange: (tab: string) => void
+  onTapAdd?: (item: DecorationItem) => void
 }
 
 export default function DecorationShelf({
-  selectedLayerId, layers, onUpdateColor, activeTab, onTabChange,
+  selectedLayerId, layers, onUpdateColor, activeTab, onTabChange, onTapAdd,
 }: DecorationShelfProps) {
   const tabItems = DECORATION_ITEMS.filter(item => item.category === activeTab)
 
@@ -147,7 +191,8 @@ export default function DecorationShelf({
       {/* Header */}
       <div className="px-4 pt-4 pb-2 border-b border-primary-light/20 flex-shrink-0">
         <h2 className="font-display text-base font-semibold text-espresso">Decoration Shelf</h2>
-        <p className="font-body text-[11px] text-espresso-light/50 mt-0.5">Drag items onto your cake</p>
+        <p className="font-body text-[11px] text-espresso-light/50 mt-0.5 hidden md:block">Drag items onto your cake</p>
+        <p className="font-body text-[11px] text-espresso-light/50 mt-0.5 md:hidden">Tap to add to your cake</p>
       </div>
 
       {/* Tab bar */}
@@ -186,7 +231,16 @@ export default function DecorationShelf({
             ) : (
               <div className="flex flex-col gap-2">
                 {tabItems.map(item => (
-                  <DraggableItem key={item.id} item={item} />
+                  <div key={item.id}>
+                    {/* Desktop: draggable */}
+                    <div className="hidden md:block">
+                      <DraggableItem item={item} />
+                    </div>
+                    {/* Mobile: tappable */}
+                    <div className="md:hidden">
+                      <TappableItem item={item} onTap={onTapAdd ?? (() => {})} />
+                    </div>
+                  </div>
                 ))}
               </div>
             )}

@@ -177,7 +177,7 @@ export default function Cupcakes() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className="font-display text-5xl sm:text-6xl lg:text-7xl text-espresso leading-[1.05] tracking-tight mb-5"
+            className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-espresso leading-[1.05] tracking-tight mb-5"
           >
             Karachi's{' '}
             <span className="italic text-gradient">Sweetest</span>
@@ -224,11 +224,11 @@ export default function Cupcakes() {
             {FLOAT_EMOJIS.map((e, i) => (
               <span
                 key={i}
-                className={`${e.scale} animate-float leading-none select-none`}
+                className={`${e.scale} animate-float leading-none select-none ${i >= 5 ? 'hidden sm:inline' : ''}`}
                 style={{
                   animationDelay: `${e.delay}s`,
                   transform: `rotate(${e.rotate}deg)`,
-                  display: 'inline-block',
+                  display: i >= 5 ? undefined : 'inline-block',
                 }}
               >
                 🧁
@@ -395,11 +395,11 @@ export default function Cupcakes() {
               We create fully custom cupcake boxes — your theme, your colours, your message.
               Perfect for corporate events, weddings, and special occasions.
             </p>
-            <div className="flex flex-col sm:flex-row gap-3 mt-2">
-              <Link to="/order" className="btn-accent px-8 py-3.5 text-base text-center">
+            <div className="flex flex-col sm:flex-row gap-3 mt-2 w-full sm:w-auto">
+              <Link to="/order" className="btn-accent px-8 py-3.5 text-base text-center w-full sm:w-auto">
                 Order Custom Cupcakes
               </Link>
-              <Link to="/builder" className="btn-ghost px-8 py-3.5 text-base text-center">
+              <Link to="/builder" className="btn-ghost px-8 py-3.5 text-base text-center w-full sm:w-auto">
                 Design in Builder
               </Link>
             </div>

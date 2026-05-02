@@ -12,7 +12,7 @@ export default function MobileTabBar({ activeTab, onTabChange, layerCount }: Mob
   ]
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 z-40 bg-surface/95 backdrop-blur-md border-t border-primary-light/30 flex md:hidden">
+    <div className="fixed bottom-0 left-0 right-0 z-40 bg-surface/95 backdrop-blur-md border-t border-primary-light/30 flex md:hidden pb-safe">
       {tabs.map(tab => (
         <button
           key={tab.id}

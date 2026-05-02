@@ -68,7 +68,7 @@ function Field({ label, required, error, children }: FieldProps) {
   )
 }
 
-const inputCls = `w-full font-body text-sm bg-[#FDF6F0] border rounded-xl px-3 py-2.5 text-[#2C1810]
+const inputCls = `w-full font-body text-base bg-[#FDF6F0] border rounded-xl px-3 py-2.5 text-[#2C1810]
   placeholder-[#2C1810]/30 outline-none transition-colors
   focus:border-[#F2A7BB] border-[rgba(242,167,187,0.35)]`
 
@@ -121,14 +121,14 @@ function Step1Cart({ onNext }: Step1Props) {
             <div className="flex items-center gap-2 flex-shrink-0">
               <button onClick={() => updateQty(item.id, item.qty - 1)}
                 aria-label={`Decrease quantity of ${item.cakeName}`}
-                className="w-7 h-7 rounded-lg border border-[#F2A7BB]/40 flex items-center justify-center
+                className="w-8 h-8 rounded-lg border border-[#F2A7BB]/40 flex items-center justify-center
                            text-[#2C1810]/60 hover:bg-[#F2A7BB]/20 hover:text-[#2C1810] transition-colors font-bold text-base">
                 −
               </button>
               <span className="font-body text-sm font-semibold text-[#2C1810] w-5 text-center">{item.qty}</span>
               <button onClick={() => updateQty(item.id, item.qty + 1)}
                 aria-label={`Increase quantity of ${item.cakeName}`}
-                className="w-7 h-7 rounded-lg border border-[#F2A7BB]/40 flex items-center justify-center
+                className="w-8 h-8 rounded-lg border border-[#F2A7BB]/40 flex items-center justify-center
                            text-[#2C1810]/60 hover:bg-[#F2A7BB]/20 hover:text-[#2C1810] transition-colors font-bold text-base">
                 +
               </button>
@@ -147,7 +147,7 @@ function Step1Cart({ onNext }: Step1Props) {
             {/* Remove */}
             <button onClick={() => removeItem(item.id)}
               aria-label={`Remove ${item.cakeName} from cart`}
-              className="flex-shrink-0 w-7 h-7 rounded-lg flex items-center justify-center
+              className="flex-shrink-0 w-8 h-8 rounded-lg flex items-center justify-center
                          text-[#2C1810]/25 hover:text-red-400 hover:bg-red-50 transition-colors text-sm ml-1">
               ✕
             </button>
@@ -418,8 +418,8 @@ function Step3Payment({ form, onBack }: Step3Props) {
   return (
     <div className="flex flex-col lg:flex-row gap-6 max-w-4xl mx-auto">
 
-      {/* ── LEFT: Payment method ── */}
-      <div className="flex-1 flex flex-col gap-5">
+      {/* ── LEFT: Payment method ── (order-2 on mobile so summary shows first) */}
+      <div className="flex-1 flex flex-col gap-5 order-2 lg:order-1">
         <div className="bg-[#FFFAF7] border border-[#F2A7BB]/20 rounded-2xl p-5 shadow-[0_2px_8px_rgba(44,24,16,0.05)]">
           <h3 className="font-display text-base font-semibold text-[#2C1810] mb-4">Payment Method</h3>
           <div className="flex flex-col gap-3">
@@ -478,8 +478,8 @@ function Step3Payment({ form, onBack }: Step3Props) {
         </div>
       </div>
 
-      {/* ── RIGHT: Order summary ── */}
-      <div className="lg:w-[340px] flex-shrink-0 max-w-lg mx-auto w-full lg:mx-0">
+      {/* ── RIGHT: Order summary ── (order-1 on mobile so it shows first) */}
+      <div className="lg:w-[340px] flex-shrink-0 max-w-lg mx-auto w-full lg:mx-0 order-1 lg:order-2">
         <div className="bg-[#FFFAF7] border border-[#F2A7BB]/20 rounded-2xl p-5 shadow-[0_2px_8px_rgba(44,24,16,0.05)] lg:sticky lg:top-24">
           <h3 className="font-display text-base font-semibold text-[#2C1810] mb-4">Order Summary</h3>
 

@@ -49,7 +49,7 @@ function SortableLayerRow({ layer, isSelected, onSelect, onRemove, onToggleVisib
       exit={{ opacity: 0, x: 16 }}
       transition={{ duration: 0.18 }}
       onClick={onSelect}
-      className={`flex items-center gap-2 px-2.5 py-2 rounded-xl cursor-pointer group transition-colors duration-100
+      className={`flex items-center gap-2 px-2.5 py-2 rounded-xl cursor-pointer group transition-colors duration-100 min-h-[48px]
         ${isSelected
           ? 'bg-blue-50 border-2 border-blue-300'
           : 'bg-surface border border-primary-light/20 hover:border-primary/30'}`}
@@ -58,7 +58,7 @@ function SortableLayerRow({ layer, isSelected, onSelect, onRemove, onToggleVisib
         {...attributes}
         {...listeners}
         onClick={e => e.stopPropagation()}
-        className="text-espresso-light/30 cursor-grab active:cursor-grabbing text-xs flex-shrink-0 hover:text-espresso-light/60 select-none"
+        className="hidden md:inline text-espresso-light/30 cursor-grab active:cursor-grabbing text-xs flex-shrink-0 hover:text-espresso-light/60 select-none"
       >
         ⠿
       </span>
@@ -70,14 +70,14 @@ function SortableLayerRow({ layer, isSelected, onSelect, onRemove, onToggleVisib
       />
       <button
         onClick={e => { e.stopPropagation(); onToggleVisibility() }}
-        className={`text-sm flex-shrink-0 transition-opacity ${layer.visible ? 'opacity-100' : 'opacity-25'}`}
+        className={`w-8 h-8 flex items-center justify-center rounded-lg text-sm flex-shrink-0 transition-opacity ${layer.visible ? 'opacity-100' : 'opacity-25'}`}
         title={layer.visible ? 'Hide layer' : 'Show layer'}
       >
         👁
       </button>
       <button
         onClick={e => { e.stopPropagation(); onRemove() }}
-        className="text-[11px] text-espresso-light/30 hover:text-red-400 transition-colors flex-shrink-0 opacity-0 group-hover:opacity-100"
+        className="w-8 h-8 flex items-center justify-center rounded-lg text-[11px] text-espresso-light/30 hover:text-red-400 transition-colors flex-shrink-0 opacity-0 group-hover:opacity-100"
       >
         ✕
       </button>
@@ -186,7 +186,7 @@ export default function LayerPanel({
         <button
           onClick={() => navigate('/order', { state: { cakeName, layers, estimatedPrice } })}
           disabled={layers.length === 0}
-          className="btn-accent w-full text-sm disabled:opacity-40 disabled:cursor-not-allowed"
+          className="btn-accent w-full text-sm py-4 disabled:opacity-40 disabled:cursor-not-allowed"
         >
           Proceed to Order →
         </button>

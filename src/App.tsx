@@ -13,6 +13,7 @@ import NotFound          from './pages/NotFound'
 function App() {
   return (
     <CartProvider>
+      <div className="overflow-x-hidden">
       <Routes>
         <Route path="/"                   element={<Home />} />
         <Route path="/catalogue"          element={<Catalogue />} />
@@ -24,6 +25,7 @@ function App() {
         <Route path="/admin"              element={<Admin />} />
         <Route path="*"                   element={<NotFound />} />
       </Routes>
+      </div>
     </CartProvider>
   )
 }

@@ -49,7 +49,7 @@ export default function ThemeShowcase() {
             return (
               <div
                 key={`${cat.id}-${i}`}
-                className={`flex-shrink-0 w-52 h-64 bg-gradient-to-br ${cat.gradient}
+                className={`flex-shrink-0 w-44 h-56 md:w-52 md:h-64 bg-gradient-to-br ${cat.gradient}
                              rounded-3xl shadow-card flex flex-col justify-between p-5
                              group relative overflow-hidden hover:shadow-hover hover:-translate-y-1
                              transition-all duration-300`}

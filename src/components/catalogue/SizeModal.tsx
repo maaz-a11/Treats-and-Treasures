@@ -143,7 +143,7 @@ export default function SizeModal({ product, onClose }: SizeModalProps) {
                   </div>
                   <button
                     onClick={onClose}
-                    className="flex-shrink-0 w-8 h-8 flex items-center justify-center rounded-xl
+                    className="flex-shrink-0 w-10 h-10 flex items-center justify-center rounded-xl
                                hover:bg-[#F2A7BB]/25 text-[#2C1810]/50 hover:text-[#2C1810]
                                transition-colors text-base font-bold"
                     aria-label="Close"
@@ -169,7 +169,7 @@ export default function SizeModal({ product, onClose }: SizeModalProps) {
                         <button
                           key={opt.pounds}
                           onClick={() => setSelected(opt)}
-                          className="relative text-left p-3 rounded-2xl border-2 transition-all duration-150 focus:outline-none"
+                          className="relative text-left p-3 rounded-2xl border-2 transition-all duration-150 focus:outline-none min-h-[80px]"
                           style={{
                             borderColor: isActive ? '#D4956A' : 'rgba(242,167,187,0.35)',
                             backgroundColor: isActive ? 'rgba(212,149,106,0.07)' : '#FDF6F0',
@@ -217,7 +217,7 @@ export default function SizeModal({ product, onClose }: SizeModalProps) {
                     onChange={e => setInstructions(e.target.value)}
                     placeholder="E.g. Write 'Happy Birthday Alisha' on the cake, no nuts, or any special request..."
                     rows={3}
-                    className="w-full font-body text-sm rounded-xl px-3 py-2.5 text-[#2C1810] resize-none
+                    className="w-full font-body text-base rounded-xl px-3 py-2.5 text-[#2C1810] resize-none
                                border border-[#F2A7BB]/30 bg-[#FDF6F0]
                                placeholder-[#2C1810]/30 outline-none
                                focus:border-[#F2A7BB] transition-colors"
@@ -245,11 +245,11 @@ export default function SizeModal({ product, onClose }: SizeModalProps) {
               <button
                 onClick={handleAddToCart}
                 disabled={!selected || added}
-                className="flex-shrink-0 font-body font-semibold text-sm text-white
+                className="w-full sm:w-auto flex-shrink-0 font-body font-semibold text-sm text-white
                            px-6 py-3 rounded-2xl transition-all duration-200
                            disabled:opacity-50 disabled:cursor-not-allowed
                            hover:opacity-90 active:scale-95"
-                style={{ backgroundColor: '#D4956A', minWidth: 140 }}
+                style={{ backgroundColor: '#D4956A' }}
               >
                 {added ? 'Added ✓' : 'Add to Cart 🛒'}
               </button>

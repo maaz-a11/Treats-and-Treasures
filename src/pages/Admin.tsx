@@ -413,7 +413,7 @@ function Overview({ orders, onSelectOrder, onNavigate }: OverviewProps) {
             <div className="flex items-start justify-between">
               <div>
                 <p className="font-body text-xs text-[#2C1810]/50 mb-1">{c.label}</p>
-                <p className="font-display text-2xl font-bold" style={{ color: c.color }}>{c.value}</p>
+                <p className="font-display text-xl md:text-2xl font-bold truncate" style={{ color: c.color }}>{c.value}</p>
               </div>
               <div className="text-2xl w-10 h-10 rounded-xl flex items-center justify-center"
                 style={{ backgroundColor: c.bg }}>
@@ -545,7 +545,7 @@ function OrdersTable({ orders, onSelectOrder, view }: TableProps) {
           <input
             value={search} onChange={e => setSearch(e.target.value)}
             placeholder="Search by order ID, name, or phone..."
-            className="w-full font-body text-sm bg-[#FFFAF7] border border-[#F2A7BB]/25 rounded-xl
+            className="w-full font-body text-base bg-[#FFFAF7] border border-[#F2A7BB]/25 rounded-xl
                        pl-9 pr-3 py-2.5 text-[#2C1810] placeholder-[#2C1810]/30
                        outline-none focus:border-[#F2A7BB] transition-colors"
           />
@@ -753,7 +753,7 @@ function Dashboard({ onLogout }: { onLogout: () => void }) {
 
       {/* ── MOBILE TAB BAR ── */}
       <div className="md:hidden fixed top-0 left-0 right-0 z-30 bg-[#FFFAF7] border-b border-[#F2A7BB]/20
-                      flex items-center justify-around px-2 py-2">
+                      flex items-center justify-around px-2 py-2 pt-safe">
         {NAV_ITEMS.map(item => (
           <button key={item.id} onClick={() => setActiveView(item.id)}
             className={`flex flex-col items-center gap-0.5 px-3 py-1.5 rounded-xl relative

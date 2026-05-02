@@ -779,8 +779,9 @@ function CanvasToolbar({ cakeName, onNameChange, onUndo, onClear, onSave, canUnd
     <div className="flex items-center gap-2 px-3 py-2 bg-surface border-b border-primary-light/20 flex-shrink-0 flex-wrap">
       <input type="text" value={cakeName} onChange={e => onNameChange(e.target.value)}
         placeholder="Name your cake..."
-        className="flex-1 min-w-[120px] font-body text-sm bg-background border border-primary/20 rounded-xl px-3 py-1.5 text-espresso placeholder-espresso-light/40 outline-none focus:border-primary transition-colors" />
-      <div className="flex items-center gap-1.5 bg-background border border-primary/15 rounded-xl px-2 py-1">
+        className="flex-1 min-w-[120px] font-body text-base bg-background border border-primary/20 rounded-xl px-3 py-1.5 text-espresso placeholder-espresso-light/40 outline-none focus:border-primary transition-colors" />
+      {/* Rotation slider — desktop only */}
+      <div className="hidden md:flex items-center gap-1.5 bg-background border border-primary/15 rounded-xl px-2 py-1">
         <span className="text-xs">🔄</span>
         <input type="range" min={-1.2} max={1.2} step={0.04} value={rotation}
           onChange={e => onRotate(parseFloat(e.target.value))}
@@ -788,11 +789,11 @@ function CanvasToolbar({ cakeName, onNameChange, onUndo, onClear, onSave, canUnd
         <span className="font-body text-[10px] text-espresso-light/50 w-6">{Math.round(rotation * 57)}°</span>
       </div>
       <button onClick={onUndo} disabled={!canUndo} title="Undo"
-        className="w-8 h-8 flex items-center justify-center rounded-xl hover:bg-primary-light/30 disabled:opacity-30 text-espresso disabled:cursor-not-allowed">↩</button>
+        className="w-10 h-10 flex items-center justify-center rounded-xl hover:bg-primary-light/30 disabled:opacity-30 text-espresso disabled:cursor-not-allowed">↩</button>
       <button onClick={onClear} title="Clear All"
-        className="w-8 h-8 flex items-center justify-center rounded-xl hover:bg-red-50 hover:text-red-400 text-espresso-light">🗑</button>
+        className="w-10 h-10 flex items-center justify-center rounded-xl hover:bg-red-50 hover:text-red-400 text-espresso-light">🗑</button>
       <button onClick={onSave} title="Save Design"
-        className="w-8 h-8 flex items-center justify-center rounded-xl hover:bg-primary-light/30 text-espresso">💾</button>
+        className="w-10 h-10 flex items-center justify-center rounded-xl hover:bg-primary-light/30 text-espresso">💾</button>
     </div>
   )
 }
@@ -855,13 +856,13 @@ export default function CakeCanvas({
         onUndo={onUndo} onClear={onClear} onSave={onSave} canUndo={canUndo}
         rotation={rotation} onRotate={setRotation} />
 
-      <div className="flex-1 flex items-center justify-center overflow-auto p-4">
+      <div className="flex-1 flex items-center justify-center overflow-auto p-2 md:p-4">
         <div
           ref={setNodeRef}
           onClick={() => onSelectLayer(null)}
-          className="relative rounded-2xl transition-colors duration-200 flex flex-col items-center justify-center"
+          className="relative rounded-2xl transition-colors duration-200 flex flex-col items-center justify-center w-full md:w-auto"
           style={{
-            minWidth: CW, minHeight: CH + 20,
+            minHeight: CH + 20,
             background: isOver
               ? 'radial-gradient(ellipse at center, rgba(242,167,187,0.18) 0%, rgba(253,246,240,0.95) 100%)'
               : 'radial-gradient(ellipse at center, rgba(250,240,230,0.7) 0%, rgba(253,246,240,0.4) 100%)',
@@ -893,8 +894,8 @@ export default function CakeCanvas({
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0 }}
                 transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}>
-                <svg width={CW} height={CH} viewBox={`0 0 ${CW} ${CH}`}
-                  style={{ display: 'block', overflow: 'visible' }}>
+                <svg viewBox={`0 0 ${CW} ${CH}`}
+                  style={{ display: 'block', overflow: 'visible', width: '100%', maxWidth: CW, height: 'auto' }}>
                   <SvgCake
                     layers={layers} selectedLayerId={selectedLayerId}
                     rotation={rotation} onSelectTier={handleSelectTier} onRemoveLayer={onRemoveLayer} />

@@ -2,15 +2,15 @@ import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 
 const floatingBadges = [
-  { emoji: '🍓', label: 'Strawberry', top: '15%', left: '10%', delay: 0 },
-  { emoji: '🌸', label: 'Floral', top: '70%', left: '5%', delay: 0.4 },
-  { emoji: '✨', label: 'Sparkle', top: '20%', right: '8%', delay: 0.8 },
-  { emoji: '🎀', label: 'Ribbon', top: '75%', right: '5%', delay: 0.2 },
+  { emoji: '🍓', label: 'Strawberry', top: '15%', left: '10%', delay: 0,   mobileHide: false },
+  { emoji: '🌸', label: 'Floral',     top: '70%', left: '5%',  delay: 0.4, mobileHide: true  },
+  { emoji: '✨', label: 'Sparkle',    top: '20%', right: '8%', delay: 0.8, mobileHide: false },
+  { emoji: '🎀', label: 'Ribbon',     top: '75%', right: '5%', delay: 0.2, mobileHide: true  },
 ]
 
 export default function Hero() {
   return (
-    <section className="relative min-h-screen flex items-center overflow-hidden bg-background">
+    <section className="relative min-h-[100svh] flex items-center overflow-hidden bg-background">
       {/* Decorative background blobs */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
         <div className="absolute -top-32 -right-32 w-96 h-96 bg-primary-light/40 rounded-full blur-3xl" />
@@ -41,7 +41,7 @@ export default function Hero() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.1 }}
             >
-              <h1 className="font-display text-5xl sm:text-6xl lg:text-7xl text-espresso leading-[1.05] tracking-tight">
+              <h1 className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-espresso leading-[1.05] tracking-tight">
                 Design Your{' '}
                 <span className="italic text-gradient">Dream</span>
                 <br />
@@ -65,12 +65,12 @@ export default function Hero() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.3 }}
-              className="flex flex-col sm:flex-row gap-3 pt-2"
+              className="flex flex-col sm:flex-row gap-3 pt-2 w-full sm:w-auto"
             >
-              <Link to="/builder" className="btn-primary text-center text-base px-8 py-3.5">
+              <Link to="/builder" className="btn-primary text-center text-base px-8 py-3.5 w-full sm:w-auto">
                 Start Designing 🎨
               </Link>
-              <Link to="/catalogue" className="btn-ghost text-center text-base px-8 py-3.5">
+              <Link to="/catalogue" className="btn-ghost text-center text-base px-8 py-3.5 w-full sm:w-auto">
                 Browse Cakes
               </Link>
             </motion.div>
@@ -125,7 +125,7 @@ export default function Hero() {
             {floatingBadges.map((badge, i) => (
               <motion.div
                 key={i}
-                className="absolute z-10 bg-surface/90 backdrop-blur-sm border border-primary-light/40 rounded-2xl px-3 py-2 shadow-card flex items-center gap-1.5"
+                className={`absolute z-10 bg-surface/90 backdrop-blur-sm border border-primary-light/40 rounded-2xl px-3 py-2 shadow-card flex items-center gap-1.5 ${badge.mobileHide ? 'hidden sm:flex' : 'flex'}`}
                 style={{
                   top: badge.top,
                   left: badge.left,

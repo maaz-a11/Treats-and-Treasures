@@ -98,6 +98,9 @@
   .pause-on-hover:hover > * {
     animation-play-state: paused;
   }
+
+  .pb-safe { padding-bottom: env(safe-area-inset-bottom); }
+  .pt-safe  { padding-top:    env(safe-area-inset-top);    }
 }
 
 /* Custom scrollbar */

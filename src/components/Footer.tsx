@@ -64,7 +64,7 @@ export default function Footer() {
                 rel="noopener noreferrer"
                 className="flex items-center gap-3 group"
               >
-                <div className="w-9 h-9 bg-gradient-to-br from-[#833AB4] via-[#FD1D1D] to-[#FCB045] rounded-xl flex items-center justify-center text-base flex-shrink-0 group-hover:scale-105 transition-transform">
+                <div className="w-11 h-11 bg-gradient-to-br from-[#833AB4] via-[#FD1D1D] to-[#FCB045] rounded-xl flex items-center justify-center text-base flex-shrink-0 group-hover:scale-105 transition-transform">
                   📸
                 </div>
                 <div>
@@ -80,7 +80,7 @@ export default function Footer() {
                 rel="noopener noreferrer"
                 className="flex items-center gap-3 group"
               >
-                <div className="w-9 h-9 bg-[#25D366] rounded-xl flex items-center justify-center text-base flex-shrink-0 group-hover:scale-105 transition-transform">
+                <div className="w-11 h-11 bg-[#25D366] rounded-xl flex items-center justify-center text-base flex-shrink-0 group-hover:scale-105 transition-transform">
                   💬
                 </div>
                 <div>
@@ -95,7 +95,7 @@ export default function Footer() {
         </div>
 
         {/* Bottom bar */}
-        <div className="mt-12 pt-6 border-t border-cream/10 flex flex-col sm:flex-row items-center justify-between gap-3">
+        <div className="mt-12 pt-6 border-t border-cream/10 flex flex-col sm:flex-row items-center justify-between gap-3 pb-safe">
           <p className="font-body text-xs text-cream/40">
             © {year} Treats & Treasures. All rights reserved. Made with 💖 in Karachi, Pakistan.
           </p>

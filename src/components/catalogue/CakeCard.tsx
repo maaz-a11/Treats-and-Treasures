@@ -106,7 +106,7 @@ export default function CakeCard({ product, onOrderClick, index }: CakeCardProps
             onClick={() => onOrderClick(product)}
             aria-label={`Order ${product.name}`}
             className="flex-1 font-body font-semibold text-sm text-white
-                       py-2.5 rounded-2xl transition-all duration-200
+                       py-3 rounded-2xl transition-all duration-200
                        hover:opacity-90 active:scale-[0.98]"
             style={{ backgroundColor: '#D4956A' }}
           >
@@ -118,7 +118,7 @@ export default function CakeCard({ product, onOrderClick, index }: CakeCardProps
               title="Customize this cake in the builder"
               aria-label={`Customize ${product.name} in the builder`}
               className="flex-shrink-0 flex items-center justify-center
-                         w-10 h-10 rounded-2xl border-2 border-[#2C1810]/15
+                         w-11 h-11 rounded-2xl border-2 border-[#2C1810]/15
                          text-[#2C1810]/50 hover:border-[#2C1810]/30 hover:text-[#2C1810]
                          transition-colors text-base"
             >

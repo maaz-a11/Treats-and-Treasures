@@ -98,7 +98,7 @@ export default function HowItWorks() {
             <motion.div
               key={step.number}
               variants={cardVariants}
-              className={`relative card-surface bg-gradient-to-br ${step.color} border ${step.border} p-7 flex flex-col gap-4 group hover:shadow-hover hover:-translate-y-1 transition-all duration-300 z-10`}
+              className={`relative card-surface bg-gradient-to-br ${step.color} border ${step.border} p-5 md:p-7 flex flex-col gap-4 group hover:shadow-hover hover:-translate-y-1 transition-all duration-300 z-10`}
             >
               {/* Step number badge */}
               <div className="flex items-start justify-between">
