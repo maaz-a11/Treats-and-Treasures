@@ -4,7 +4,7 @@
 
 export const SITE_CONFIG = {
   // WhatsApp: international format WITHOUT + (e.g. '923001234567')
-  whatsappNumber:  '923001234567',
+  whatsappNumber:  '923368462209',
 
   // Business info
   businessName:    'Treats & Treasures',
