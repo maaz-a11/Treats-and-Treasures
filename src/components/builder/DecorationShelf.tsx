@@ -33,7 +33,7 @@ function DraggableItem({ item }: DraggableItemProps) {
     >
       <span className="text-espresso-light/30 text-xs">⠿</span>
       <span className="text-lg leading-none flex-shrink-0">{item.emoji}</span>
-      <span className="font-body text-xs font-medium text-espresso leading-tight">{item.name}</span>
+      <span className="font-body text-xs font-medium text-espresso leading-tight line-clamp-1">{item.name}</span>
     </div>
   )
 }
@@ -63,7 +63,7 @@ function TappableItem({ item, onTap }: TappableItemProps) {
                  hover:border-primary/50 hover:shadow-card text-left"
     >
       <span className="text-xl leading-none flex-shrink-0">{item.emoji}</span>
-      <span className="font-body text-sm font-medium text-espresso flex-1">{item.name}</span>
+      <span className="font-body text-sm font-medium text-espresso flex-1 line-clamp-1">{item.name}</span>
       <AnimatePresence>
         {tapped && (
           <motion.span
@@ -178,11 +178,11 @@ interface DecorationShelfProps {
   onUpdateColor: (id: string, color: string) => void
   activeTab: string
   onTabChange: (tab: string) => void
-  onTapAdd?: (item: DecorationItem) => void
+  onAddItem?: (item: DecorationItem) => void
 }
 
 export default function DecorationShelf({
-  selectedLayerId, layers, onUpdateColor, activeTab, onTabChange, onTapAdd,
+  selectedLayerId, layers, onUpdateColor, activeTab, onTabChange, onAddItem,
 }: DecorationShelfProps) {
   const tabItems = DECORATION_ITEMS.filter(item => item.category === activeTab)
 
@@ -238,7 +238,7 @@ export default function DecorationShelf({
                     </div>
                     {/* Mobile: tappable */}
                     <div className="md:hidden">
-                      <TappableItem item={item} onTap={onTapAdd ?? (() => {})} />
+                      <TappableItem item={item} onTap={onAddItem ?? (() => {})} />
                     </div>
                   </div>
                 ))}

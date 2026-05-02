@@ -1,5 +1,4 @@
 import { useRef, useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
 import {
   SortableContext,
   useSortable,
@@ -24,7 +23,6 @@ function SortableLayerRow({ layer, isSelected, onSelect, onRemove, onToggleVisib
   const rowRef = useRef<HTMLDivElement>(null)
   const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({ id: layer.id })
 
-  // Auto-scroll into view when selected
   useEffect(() => {
     if (isSelected && rowRef.current) {
       rowRef.current.scrollIntoView({ behavior: 'smooth', block: 'nearest' })
@@ -97,13 +95,13 @@ interface LayerPanelProps {
   onSelectLayer: (id: string | null) => void
   onRemoveLayer: (id: string) => void
   onToggleVisibility: (id: string) => void
+  onAddToCart: () => void
 }
 
 export default function LayerPanel({
   layers, selectedLayerId, cakeName, tierCount, estimatedPrice,
-  onSelectLayer, onRemoveLayer, onToggleVisibility,
+  onSelectLayer, onRemoveLayer, onToggleVisibility, onAddToCart,
 }: LayerPanelProps) {
-  const navigate = useNavigate()
   const decorationCount = layers.filter(l => l.category !== 'base').length
   const reversedLayers = [...layers].reverse()
 
@@ -122,8 +120,11 @@ export default function LayerPanel({
         {layers.length === 0 ? (
           <div className="flex flex-col items-center justify-center h-full gap-2 text-center py-8">
             <span className="text-3xl opacity-20">📋</span>
-            <p className="font-body text-xs text-espresso-light/40">
+            <p className="font-body text-xs text-espresso-light/40 hidden md:block">
               No layers yet — drag items from the shelf
+            </p>
+            <p className="font-body text-xs text-espresso-light/40 md:hidden">
+              Tap 'Base' in the shelf to add layers
             </p>
           </div>
         ) : (
@@ -145,13 +146,13 @@ export default function LayerPanel({
       </div>
 
       {/* Order summary */}
-      <div className="border-t border-primary-light/20 p-4 bg-surface/60 flex-shrink-0">
+      <div className="border-t border-primary-light/20 p-4 bg-surface/60 flex-shrink-0 overflow-hidden">
         <h3 className="font-display text-sm font-semibold text-espresso mb-3">Order Summary</h3>
 
         <div className="flex flex-col gap-1.5 mb-4">
           <div className="flex justify-between items-center">
             <span className="font-body text-xs text-espresso-light">Cake Name</span>
-            <span className="font-body text-xs font-medium text-espresso truncate max-w-[110px]">
+            <span className="font-body text-xs font-medium text-espresso truncate max-w-[140px]">
               {cakeName || '—'}
             </span>
           </div>
@@ -184,11 +185,11 @@ export default function LayerPanel({
         </div>
 
         <button
-          onClick={() => navigate('/order', { state: { cakeName, layers, estimatedPrice } })}
+          onClick={onAddToCart}
           disabled={layers.length === 0}
           className="btn-accent w-full text-sm py-4 disabled:opacity-40 disabled:cursor-not-allowed"
         >
-          Proceed to Order →
+          🛒 Add to Cart & Order
         </button>
       </div>
     </div>

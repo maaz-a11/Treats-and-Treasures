@@ -2,8 +2,6 @@ import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { CAKE_CATEGORIES } from '../data/cakeCategories'
 
-// Map category data to card display format
-// text colour logic: dark gradients use white text, light gradients use espresso
 const LIGHT_SLUGS = ['wedding', 'engagement', 'baby-shower', 'bridal-shower']
 
 function getTextColor(slug: string) {
@@ -47,9 +45,10 @@ export default function ThemeShowcase() {
             const textColor = getTextColor(cat.slug)
             const isLight = LIGHT_SLUGS.includes(cat.slug)
             return (
-              <div
+              <Link
                 key={`${cat.id}-${i}`}
-                className={`flex-shrink-0 w-44 h-56 md:w-52 md:h-64 bg-gradient-to-br ${cat.gradient}
+                to={`/catalogue?category=${cat.slug}`}
+                className={`flex-shrink-0 w-44 h-56 md:w-52 md:h-64 min-h-[240px] bg-gradient-to-br ${cat.gradient}
                              rounded-3xl shadow-card flex flex-col justify-between p-5
                              group relative overflow-hidden hover:shadow-hover hover:-translate-y-1
                              transition-all duration-300`}
@@ -73,17 +72,16 @@ export default function ThemeShowcase() {
                   <h3 className={`font-display text-xl font-bold ${textColor} leading-tight`}>
                     {cat.name}
                   </h3>
-                  <Link
-                    to={`/catalogue?category=${cat.slug}`}
+                  {/* span instead of Link — entire card is already a link */}
+                  <span
                     className={`font-body text-xs font-semibold ${textColor} border
-                      ${isLight ? 'border-espresso/20 hover:bg-espresso/10' : 'border-white/40 hover:bg-white/20'}
+                      ${isLight ? 'border-espresso/20 group-hover:bg-espresso/10' : 'border-white/40 group-hover:bg-white/20'}
                       rounded-full px-3 py-1.5 text-center transition-colors w-fit`}
-                    onClick={e => e.stopPropagation()}
                   >
                     Explore →
-                  </Link>
+                  </span>
                 </div>
-              </div>
+              </Link>
             )
           })}
         </div>

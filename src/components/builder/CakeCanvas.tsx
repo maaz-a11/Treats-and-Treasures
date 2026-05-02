@@ -779,7 +779,7 @@ function CanvasToolbar({ cakeName, onNameChange, onUndo, onClear, onSave, canUnd
     <div className="flex items-center gap-2 px-3 py-2 bg-surface border-b border-primary-light/20 flex-shrink-0 flex-wrap">
       <input type="text" value={cakeName} onChange={e => onNameChange(e.target.value)}
         placeholder="Name your cake..."
-        className="flex-1 min-w-[120px] font-body text-base bg-background border border-primary/20 rounded-xl px-3 py-1.5 text-espresso placeholder-espresso-light/40 outline-none focus:border-primary transition-colors" />
+        className="flex-1 min-w-0 font-body text-base bg-background border border-primary/20 rounded-xl px-3 py-1.5 text-espresso placeholder-espresso-light/40 outline-none focus:border-primary transition-colors" />
       {/* Rotation slider — desktop only */}
       <div className="hidden md:flex items-center gap-1.5 bg-background border border-primary/15 rounded-xl px-2 py-1">
         <span className="text-xs">🔄</span>
@@ -875,8 +875,11 @@ export default function CakeCanvas({
             <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 pointer-events-none">
               <div className="text-6xl opacity-20">🎂</div>
               <p className="font-display text-xl text-espresso/30">Your cake canvas</p>
-              <p className="font-body text-sm text-espresso-light/30 text-center max-w-48">
+              <p className="font-body text-sm text-espresso-light/30 text-center max-w-48 hidden md:block">
                 Drag a Base from the shelf to begin
+              </p>
+              <p className="font-body text-sm text-espresso-light/30 text-center max-w-48 md:hidden">
+                Tap 'Base' in the shelf below to begin
               </p>
             </div>
           )}
